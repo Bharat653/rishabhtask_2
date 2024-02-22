@@ -39,8 +39,8 @@ $gdepartment = $database->getdepartment();
             <div class="title"><span>Add Employe</span></div>
             <form action="employe.php" method="post" enctype="multipart/form-data">
                         <div class="row">
-                            <i class="fas fa-book"></i>
-                            <input type="text" name="id" value="<?php echo $result['id'] ?>" placeholder="First Name" required>
+                            <i class="fas fa-book" ></i>
+                            <input type="text"  name="id" value="<?php echo $result['id'] ?>" placeholder="First Name" required readonly>
                         </div>
                 <h1>Personal </h1>
                 <!-- Employe_name -->
@@ -64,7 +64,7 @@ $gdepartment = $database->getdepartment();
                     <div class="col-md-6 mb-4">
                         <div class="row">
                             <i class="fas fa-at"></i>
-                            <select name="department_name" class="form-control input-sm" style="padding-left: 3.5rem;">
+                            <select name="department_id" class="form-control input-sm" style="padding-left: 3.5rem;">
                                 <option>Select Department</option>
                                 <?php foreach ($gdepartment as $data) : ?>
                                     <option value="<?php echo $data['id']; ?>" <?=($data['id'] == $result['department_id']? 'selected' : '')?>><?php echo $data['department_name']; ?></option>
@@ -135,7 +135,7 @@ $gdepartment = $database->getdepartment();
                     <div class="col-md-6 mb-4">
                         <div class="row">
                             <i class="fas fa-image"></i>
-                            <input type="text" name="employe_code" value="<?php echo $result['employe_code'] ?>" placeholder="employe_code ">
+                            <input type="text" name="employe_code" value="<?php echo $result['employe_code'] ?>" placeholder="employe_code " readonly >
                         </div>
                     </div>
                     <!-- designation -->
@@ -211,7 +211,7 @@ $gdepartment = $database->getdepartment();
                     <div class="col-md-6 mb-4">
                         <div class="row">
                             <i class="fas fa-rupee-sign"></i>
-                            <input type="number" name="t_salary" value="<?php echo $result['employe_salary'] ?>" placeholder="Total Salary">
+                            <input type="number" name="t_salary" value="<?php echo $result['employe_salary'] ?>" placeholder="Total Salary" readonly >
                         </div>
                     </div>
                 </div>

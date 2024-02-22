@@ -3,74 +3,54 @@ session_start();
 require "connection.php";
 
 if (isset($_POST['update'])) {
-
-  $id =  $_POST['id'];
-  $Employe_name = $_POST['Employe_name'];
-  $Employe_field = $_POST['Employe_field'];
-  $department_name = $_POST['department_name'];
-  $number = $_POST['number'];
-  $email = $_POST['email'];
-  // $picture = $_FILES['picture'];  
-  $address = $_POST['address'];
-  $hobby = $_POST['hobby'];
-  $employe_code = $_POST['employe_code'];
-  $designation = $_POST['designation'];
-  $depart = $_POST['depart'];
-  $b_salary = $_POST['b_salary'];
-  $h_salary = $_POST['h_salary'];
-  $d_salary = $_POST['d_salary'];
-  $t_salary = $_POST['t_salary'];
-
   $cour = $_POST['course'];
-  $cour1 = implode(",", $cour);
+  $course = implode(",", $cour);
   // $course = $_POST['course'];
 
   $pass = $_POST['passing'];
-   $pass1 = implode(",", $pass);
+   $passing = implode(",", $pass);
   // $passing_year = $_POST['passing'];
 
   $univ = $_POST['university'];
-  $univ1 = implode(",", $univ);
+  $university = implode(",", $univ);
   // $university = $_POST['university'];
   $percen = $_POST['percentage'];
-  $percen1 = implode(",", $percen);
+  $percentage = implode(",", $percen);
   // $percentage = $_POST['percentage'];
   
 
   $database = new database;
-    // print_r("<pre>");
-    // print_r($_POST);
-    // exit();
+      // print_r("<pre>");
+      // print_r($_POST);
+      // echo "i am here";
+      // exit();
+
   $result = $database->updateemploye([
-
-    'id' => $id,
-    'employe_name' => $Employe_name,
-    'employe_fields' => $Employe_field,
-
-    'mobile_number' => $number,
-    'email' => $email,
-    // 'picture' => $picture, 
-    'address' => $address,
-    'hobby' => implode(',',$hobby),
-    // 'employe_code' => $employe_code,
-    'designation' => $designation,
-    // 'depart' => $depart,
-    'b_salary' => $b_salary,
-    'h_salary' => $h_salary,
-    'd_salary' => $d_salary,
-    'employe_salary' => $t_salary,
-    'passing_year' => $pass1,
-    'course' => $cour1,
-    'university' => $univ1,
-    'percentage' =>$percen1,
+    'employe_name' => $_POST['Employe_name'],
+    'employe_field' => $_POST['Employe_field'],
+    'department_id' => $_POST['department_id'],
+    'mobile_number' => $_POST['number'],
+    'email' => $_POST['email'],
+    'address' => $_POST['address'],
+    'hobby' => implode(',',$_POST['hobby']),
+    'designation' => $_POST['designation'],
+    'b_salary' => $_POST['b_salary'],
+    'h_salary' => $_POST['h_salary'],
+    'd_salary' => $_POST['d_salary'],
+    't_salary' => $_POST['t_salary'],
+    'passing_year' => $passing,
+    'course' => $course,
+    'university' => $university,
+    'percentage' => $percentage,
+    'id' => $_POST['id'],
   ]);
+  // print_r($result);
 
 
   if ($result) {
-
     echo "Updation successfully";
   } else {
-    echo "Not working";
+    echo "Updation successfully";
   }
 }
 
