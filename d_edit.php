@@ -38,6 +38,10 @@ $gdepartment = $database->getdepartment();
         <div class="wrapper">
             <div class="title"><span>Add Employe</span></div>
             <form action="employe.php" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <i class="fas fa-book"></i>
+                            <input type="text" name="id" value="<?php echo $result['id'] ?>" placeholder="First Name" required>
+                        </div>
                 <h1>Personal </h1>
                 <!-- Employe_name -->
                 <div class="row">
@@ -63,7 +67,7 @@ $gdepartment = $database->getdepartment();
                             <select name="department_name" class="form-control input-sm" style="padding-left: 3.5rem;">
                                 <option>Select Department</option>
                                 <?php foreach ($gdepartment as $data) : ?>
-                                    <option value="<?php echo $data['id']; ?>"><?php echo $data['department_name']; ?></option>
+                                    <option value="<?php echo $data['id']; ?>" <?=($data['id'] == $result['department_id']? 'selected' : '')?>><?php echo $data['department_name']; ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -108,13 +112,15 @@ $gdepartment = $database->getdepartment();
                             ?>
                             <i class="fas fa-rupee-sign"></i>
                             <fieldset data-role="controlgroup" name="hobby">
-                     
+                                <?php
+                                $hobbies = explode(',',$result['hobby']);
+                                ?>
                                 <legend>Choose your Hobby:</legend>
-                                <label for="vehicle1"><input type="checkbox" id="Walking" name="hobby[]" value="<?php echo $result['hobby'] ?>"> Walking</label><br> 
+                                <label for="vehicle1"><input type="checkbox" id="Walking" name="hobby[]" value="Walking" <?= (in_array('Walking',$hobbies)? 'checked' : '' )?> > Walking</label><br> 
           
-                                <label for="vehicle2"><input type="checkbox" id="Eating" name="hobby[]" value="<?php echo $result['hobby'] ?>"> Eating</label><br>
+                                <label for="vehicle2"><input type="checkbox" id="Eating" name="hobby[]" value="Eating" <?= (in_array('Eating',$hobbies)? 'checked' : '' )?> > Eating</label><br>
                 
-                                <label for="vehicle3"><input type="checkbox" id="Running" name="hobby[]" value="<?php echo $result['hobby'] ?>"> Running</label><br>
+                                <label for="vehicle3"><input type="checkbox" id="Running" name="hobby[]" value="Running" <?= (in_array('Running',$hobbies)? 'checked' : '' )?> > Running</label><br>
                             </fieldset>
                         </div>
                     </div>
@@ -183,13 +189,13 @@ $gdepartment = $database->getdepartment();
                     <div class="col-md-6 mb-4">
                         <div class="row">
                             <i class="fas fa-image"></i>
-                            <input type="number" name="b_salary" placeholder="Basic Pay">
+                            <input type="number" name="b_salary" value="<?php echo $result['b_salary'] ?>" placeholder="Basic Pay">
                         </div>
                     </div>
                     <div class="col-md-6 mb-4">
                         <div class="row">
                             <i class="fas fa-rupee-sign"></i>
-                            <input type="number" name="h_salary" placeholder="House Allowance">
+                            <input type="number" name="h_salary"  value="<?php echo $result['h_salary'] ?>" placeholder="House Allowance">
                         </div>
                     </div>
                 </div>
@@ -197,8 +203,8 @@ $gdepartment = $database->getdepartment();
                 <div class="row">
                     <div class="col-md-6 mb-4">
                         <div class="row">
-                            <i class="fas fa-image"></i>
-                            <input type="number" name="d_salary" placeholder="Dearness Allowance">
+                            <i class="fas fa-image"></i> 
+                            <input type="number" name="d_salary" value="<?php echo $result['d_salary'] ?>" placeholder="Dearness Allowance">
                         </div>
                     </div>
                     <!-- t_salary -->
@@ -241,10 +247,10 @@ $gdepartment = $database->getdepartment();
                                     <div class="record-row">
 
                                         <input type="hidden" name="total_qualifications_added" value="<?= count($passingYearExploded); ?>">
-                                        <input type="number" placeholder="Passing Year" name="passing[<?php echo $index; ?>]" class="inputs" value="<?= $passingYearExploded[$i]; ?>" />
-                                        <input type="text" placeholder="Course" name="course[<?= $index; ?>]" class="inputs" value="<?= $courseExploded[$i];; ?>" />
-                                        <input type="text" placeholder="University" name="university[<?= $index; ?>]" class="inputs" value="<?= $universityExploded[$i]; ?>" />
-                                        <input type="number" placeholder="Percentage" name="percentage[<?= $index; ?>]" class="inputs" value="<?= $percentageExploded[$i]; ?>" />
+                                        <input type="number" placeholder="Passing Year" name="passing[<?= $i ?>]" class="inputs" value="<?= $passingYearExploded[$i]; ?>" />
+                                        <input type="text" placeholder="Course" name="course[<?= $i ?>]" class="inputs" value="<?= $courseExploded[$i]; ?>" />
+                                        <input type="text" placeholder="University" name="university[<?= $i ?>]" class="inputs" value="<?= $universityExploded[$i]; ?>" />
+                                        <input type="number" placeholder="Percentage" name="percentage[<?= $i ?>]" class="inputs" value="<?= $percentageExploded[$i]; ?>" />
                                         <input type="file" name="certificate[]" />
                                         <button type="button" class="addmorebtn">+</button>
                                         <button type="button" class="deletemorebtn d-none">-</button>

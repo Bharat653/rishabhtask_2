@@ -66,6 +66,32 @@ class database
         return $query->execute($data);
     }
 
+    function updateemploye($data1)
+    {
+        // echo"<pre>";
+        // print_r($data1);
+        // exit();
+ 
+        $query = $this->db->prepare("update employe to set 
+        employe_name = :employe_name,
+        employe_fields = :employe_fields,
+        mobile_number = :mobile_number ,
+        email = :email,
+        address = :address,
+        hobby = :hobby,
+        designation = :designation ,
+        b_salary = :b_salary ,
+        h_salary = :h_salary ,
+        d_salary = :d_salary ,
+        t_salary = :employe_salary ,
+        passing_year =:passing_year ,
+        course = :course,
+        university = :university ,
+        percentage = :percentage
+        where id =:id ");
+        return $query->execute($data1);
+        
+    }
 
     function addemploye()
     {
@@ -81,6 +107,9 @@ class database
         $picture2 = $_FILES['picture2']['name'];
 
         $designation = $_POST['designation'];
+        $b_salary = $_POST['b_salary'];
+        $h_salary = $_POST['h_salary'];
+        $d_salary = $_POST['d_salary'];
         $t_salary = $_POST['t_salary'];
 
         $pict = $_FILES['picture2']['name'];
@@ -111,10 +140,10 @@ class database
         // print_r("</pre>");
         // exit();
 
-        $query = $this->db->prepare("INSERT INTO `employe`(`employe_name`, `employe_fields`, `mobile_number`, `email`, `address`, `hobby`, `employe_code`, `designation`, `employe_salary`, `passing_year`, `course`, `university`, `percentage`,`department_id`,`picture`,`certificate` ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+        $query = $this->db->prepare("INSERT INTO `employe`(`employe_name`, `employe_fields`, `mobile_number`, `email`, `address`, `hobby`, `employe_code`, `designation`,`b_salary`,`h_salary`,`d_salary`, `employe_salary`, `passing_year`, `course`, `university`, `percentage`,`department_id`,`picture`,`certificate` ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
         // foreach ()
-        $result = $query->execute([$Employe_name, $Employe_field, $number, $email, $address, $hob1, $employe_code, $designation, $t_salary, $pass1, $cour1, $univ1, $percen1, $department_id, $picture, $picture2]);
+        $result = $query->execute([$Employe_name, $Employe_field, $number, $email, $address, $hob1, $employe_code, $designation,$b_salary,$h_salary,$d_salary, $t_salary, $pass1, $cour1, $univ1, $percen1, $department_id, $picture, $picture2]);
  
 
           // Process profile picture upload
@@ -146,42 +175,41 @@ class database
         } else {
             return false;
         }
-    
     }
 
-    function addqualification()
-    {
+    // function addqualification()
+    // {
 
-        $cour = $_POST['course'];
-        $cour1 = implode(",", $cour);
+    //     $cour = $_POST['course'];
+    //     $cour1 = implode(",", $cour);
 
-        $univ = $_POST['university'];
-        $univ1 = implode(",", $univ);
+    //     $univ = $_POST['university'];
+    //     $univ1 = implode(",", $univ);
 
-        $pass = $_POST['passing'];
-        $pass1 = implode(",", $pass);
+    //     $pass = $_POST['passing'];
+    //     $pass1 = implode(",", $pass);
 
-        $percen = $_POST['percentage'];
-        $percen1 = implode(",", $percen);
+    //     $percen = $_POST['percentage'];
+    //     $percen1 = implode(",", $percen);
 
-        $pict = $_FILES['picture2']['name'];
-        $picture2 = implode(",", [$pict]);
+    //     $pict = $_FILES['picture2']['name'];
+    //     $picture2 = implode(",", [$pict]);
 
-        $query = $this->db->prepare("INSERT INTO `qualification`( `employe_id`, `passing_year`, `course`, `university`, `percentage`, `picture`) VALUES (?,?,?,?,?,?) ");
+    //     $query = $this->db->prepare("INSERT INTO `qualification`( `employe_id`, `passing_year`, `course`, `university`, `percentage`, `picture`) VALUES (?,?,?,?,?,?) ");
 
-        $result = $query->execute([$cour1, $univ1, $pass1, $picture2]);
+    //     $result = $query->execute([$cour1, $univ1, $pass1, $picture2]);
 
-        if ($result) {
-            $filename = $_FILES["picture2"]["name"];
-            $tempname = $_FILES["picture2"]["tmp_name"];
-            $folder = "images/" . $filename;
-            echo $folder;
-            move_uploaded_file($tempname, $folder);
-            return true;
-        } else {
-            return false;
-        }
-    }
+    //     if ($result) {
+    //         $filename = $_FILES["picture2"]["name"];
+    //         $tempname = $_FILES["picture2"]["tmp_name"];
+    //         $folder = "images/" . $filename;
+    //         echo $folder;
+    //         move_uploaded_file($tempname, $folder);
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
     function getemploye()
     {
@@ -206,12 +234,7 @@ class database
         return $query->fetch(PDO::FETCH_ASSOC);
     }
 
-    function updateemploye($data1)
-    {
-        // print_r([$data1]);
-        $query = $this->db->prepare("update employe to set Employe_name = :Employe_name ,Employe_field = :Employe_field, department_name = :department_name , number = :number ,email = :email,picture = :picture,address = :address,hobby = :hobby,employe_code = :employe_code ,designation = :designation ,depart = :depart , b_salary = :b_salary , h_salary = :h_salary , d_salary = :d_salary , t_salary = :t_salary , passing_year =:passing_year ,course =:course, university =:university , percentage =:percentage");
-        return $query->execute([$data1]);
-    }
+  
 
     function addhobby()
     {

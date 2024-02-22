@@ -4,13 +4,13 @@ require "connection.php";
 
 if (isset($_POST['update'])) {
 
-  // $id =  $_POST['id'];
+  $id =  $_POST['id'];
   $Employe_name = $_POST['Employe_name'];
   $Employe_field = $_POST['Employe_field'];
   $department_name = $_POST['department_name'];
   $number = $_POST['number'];
   $email = $_POST['email'];
-  $picture = $_FILES['picture'];
+  // $picture = $_FILES['picture'];  
   $address = $_POST['address'];
   $hobby = $_POST['hobby'];
   $employe_code = $_POST['employe_code'];
@@ -20,10 +20,22 @@ if (isset($_POST['update'])) {
   $h_salary = $_POST['h_salary'];
   $d_salary = $_POST['d_salary'];
   $t_salary = $_POST['t_salary'];
-  $passing_year = $_POST['passing'];
-  $course = $_POST['course'];
-  $university = $_POST['university'];
-  $percentage = $_POST['percentage'];
+
+  $cour = $_POST['course'];
+  $cour1 = implode(",", $cour);
+  // $course = $_POST['course'];
+
+  $pass = $_POST['passing'];
+   $pass1 = implode(",", $pass);
+  // $passing_year = $_POST['passing'];
+
+  $univ = $_POST['university'];
+  $univ1 = implode(",", $univ);
+  // $university = $_POST['university'];
+  $percen = $_POST['percentage'];
+  $percen1 = implode(",", $percen);
+  // $percentage = $_POST['percentage'];
+  
 
   $database = new database;
     // print_r("<pre>");
@@ -31,28 +43,27 @@ if (isset($_POST['update'])) {
     // exit();
   $result = $database->updateemploye([
 
-    // 'id' => $id,
-    'Employe_name' => $Employe_name,
-    'Employe_field' => $Employe_field,
-    'department_name' => $department_name,
-    'number' => $number,
+    'id' => $id,
+    'employe_name' => $Employe_name,
+    'employe_fields' => $Employe_field,
+
+    'mobile_number' => $number,
     'email' => $email,
-    'picture' => $picture,
+    // 'picture' => $picture, 
     'address' => $address,
-    'hobby' => $hobby,
-    'employe_code' => $employe_code,
+    'hobby' => implode(',',$hobby),
+    // 'employe_code' => $employe_code,
     'designation' => $designation,
-    'depart' => $depart,
+    // 'depart' => $depart,
     'b_salary' => $b_salary,
     'h_salary' => $h_salary,
     'd_salary' => $d_salary,
-    't_salary' => $t_salary,
-    'passing_year' => $passing_year,
-    'course' => $course,
-    'university' => $university,
-    'percentage' =>$percentage,
+    'employe_salary' => $t_salary,
+    'passing_year' => $pass1,
+    'course' => $cour1,
+    'university' => $univ1,
+    'percentage' =>$percen1,
   ]);
-
 
 
   if ($result) {
